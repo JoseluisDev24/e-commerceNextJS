@@ -134,7 +134,7 @@ export default function Header() {
         />
       </header>
 
-      <div className="block md:hidden px-4 py-2 bg-white shadow">
+      <div className="block md:hidden px-4 py-2 bg-gray-900 pb-4 shadow">
         <SearchField />
       </div>
     </>

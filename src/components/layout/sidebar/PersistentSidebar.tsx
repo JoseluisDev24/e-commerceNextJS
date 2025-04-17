@@ -30,7 +30,7 @@ const PersistentSidebar = () => {
         left: 0,
         height: "100vh",
         width: isCollapsed ? 72 : 240,
-        bgcolor: "white",
+        bgcolor: "darkblue",
         color: "black",
         borderRight: "1px solid #e0e0e0",
         transition: "width 0.3s ease",
