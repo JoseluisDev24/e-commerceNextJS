@@ -10,6 +10,6 @@ export const menuItems = [
   { label: "Pedidos", icon: <LocalShippingOutlinedIcon />, href: "/orders" },
   { label: "Carrito", icon: <ShoppingCartOutlinedIcon />, href: "/cart" },
   { label: "Sobre nosotros", icon: <InfoOutlinedIcon />, href: "/about" },
-  { label: "Perfil", icon: <PersonOutlineOutlinedIcon />, href: "/profile" },
+  { label: "Perfil", icon: <PersonOutlineOutlinedIcon />, href: "/login" },
   { label: "Configuración", icon: <SettingsOutlinedIcon />, href: "/settings" },
 ];

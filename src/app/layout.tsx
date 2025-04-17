@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import PersistentSidebar from "@/components/layout/sidebar/PersistentSidebar";
 import Header from "../components/layout/header/Header";
 import { ShoppingCartProvider } from "@/context/ShoppingCartContext";
+import { AuthProvider } from "@/context/AuthContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,12 +22,14 @@ export default function RootLayout({
     <html lang="es">
       <body className={inter.className}>
         <PersistentSidebar />
-        <ShoppingCartProvider>
-          <div className="md:ml-16">
-            <Header />
-            <main>{children}</main>
-          </div>
-        </ShoppingCartProvider>
+        <AuthProvider>
+          <ShoppingCartProvider>
+            <div className="md:ml-16">
+              <Header />
+              <main>{children}</main>
+            </div>
+          </ShoppingCartProvider>
+        </AuthProvider>
       </body>
     </html>
   );

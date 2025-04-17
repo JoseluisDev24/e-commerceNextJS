@@ -6,16 +6,42 @@ import ShoppingCart from "@/components/shoppingCart/ShoppingCart";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Button } from "@mui/material";
+import { Button, IconButton, Menu, MenuItem } from "@mui/material";
 import ResponsiveSidebar from "@/components/layout/sidebar/ResponsiveSidebar";
+import SearchField from "../../searchField/SearchField";
 import Link from "next/link";
-import SearchField from "@/components/searchField/SearchField";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
   const [showCart, setShowCart] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
   const menuButtonRef = useRef<HTMLDivElement | null>(null);
   const { products } = useShoppingCart();
+  const { isAuthenticated, logout } = useAuth();
+  const router = useRouter();
+
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const isMenuOpen = Boolean(anchorEl);
+
+  const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    logout();
+    handleMenuClose();
+    router.push("/login");
+  };
+
+  const handleGoToSettings = () => {
+    handleMenuClose();
+    router.push("/settings");
+  };
 
   const toggleDrawer = (open: boolean) => {
     setOpenDrawer(open);
@@ -50,6 +76,7 @@ export default function Header() {
               E.Com
             </Link>
           </div>
+
           <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-1/2">
             <SearchField />
           </div>
@@ -71,23 +98,45 @@ export default function Header() {
               </div>
             )}
 
-            <Button sx={{ color: "white" }}>Login</Button>
-            <PersonIcon
-              fontSize="large"
-              className="text-white p-1 hover:bg-slate-200/20 rounded-full"
-            />
+            {!isAuthenticated ? (
+              <Button
+                sx={{ color: "white" }}
+                onClick={() => router.push("/login")}
+              >
+                Login
+              </Button>
+            ) : (
+              <>
+                <IconButton onClick={handleProfileMenuOpen}>
+                  <PersonIcon className="text-white" />
+                </IconButton>
+
+                <Menu
+                  anchorEl={anchorEl}
+                  open={isMenuOpen}
+                  onClose={handleMenuClose}
+                  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                  transformOrigin={{ vertical: "top", horizontal: "right" }}
+                >
+                  <MenuItem onClick={handleGoToSettings}>
+                    Configuración
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout}>Cerrar sesión</MenuItem>
+                </Menu>
+              </>
+            )}
           </div>
         </div>
 
-      <div className="block md:hidden px-4 py-2 bg-white shadow">
-        <SearchField />
-      </div>
         <ResponsiveSidebar
           open={openDrawer}
           toggleDrawer={() => toggleDrawer(false)}
         />
-
       </header>
+
+      <div className="block md:hidden px-4 py-2 bg-white shadow">
+        <SearchField />
+      </div>
     </>
   );
 }
