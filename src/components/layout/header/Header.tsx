@@ -60,7 +60,7 @@ export default function Header() {
   return (
     <>
       <header className="w-full bg-slate-900 sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-4 py-6 flex justify-between items-center relative">
+        <div className="max-w-6xl mx-auto px-4 pt-4 sm:pt-5 pb-1 sm:pb-5 flex justify-between items-center relative">
           <div className="flex items-center gap-x-4">
             <div className="md:hidden" ref={menuButtonRef}>
               <MenuIcon
@@ -71,7 +71,7 @@ export default function Header() {
             </div>
             <Link
               href={"/"}
-              className="font-semibold text-2xl sm:text-3xl text-white"
+              className="font-semibold text-2xl sm:text-2xl text-white"
             >
               E.Com
             </Link>
@@ -132,11 +132,11 @@ export default function Header() {
           open={openDrawer}
           toggleDrawer={() => toggleDrawer(false)}
         />
-      </header>
-
       <div className="block md:hidden px-4 py-2 bg-gray-900 pb-4 shadow">
         <SearchField />
       </div>
+      </header>
+
     </>
   );
 }
