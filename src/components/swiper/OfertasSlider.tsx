@@ -22,7 +22,7 @@ export default function OfertasSlider() {
 
       <Swiper
         modules={[Autoplay, Navigation]}
-        autoplay={{ delay: 4000, disableOnInteraction: false }}
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
         loop={true}
         navigation={{
           nextEl: ".swiper-button-next",

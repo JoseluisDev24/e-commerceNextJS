@@ -2,7 +2,7 @@
 
 // import { useShoppingCart } from "../hooks";
 // import { useCallback } from "react";
-import { Product } from "../context/ShoppingCartContext";
+import { Product } from "../../context/ShoppingCartContext";
 import dataProductsJson from "@/data.json";
 import ProductCard from "@/components/products/ProductCard";
 const dataProducts: Product[] = dataProductsJson as Product[];
@@ -28,13 +28,5 @@ export default function ProductList() {
         <ProductCard key={product.id} product={product} />
       ))}
     </div>
-
-    /* <button
-              className="bg-indigo-600 hover:bg-indigo-800 text-slate-200 mt-auto font-medium border rounded-lg px-4 py-2 disabled:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-gray-200"
-              onClick={() => addProduct(product)}
-              disabled={checkAvailableToAddCart(product.id)}
-            >
-              Agregar al carrito
-            </button> */
   );
 }
