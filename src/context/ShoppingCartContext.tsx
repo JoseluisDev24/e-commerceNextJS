@@ -15,6 +15,7 @@ export interface Product {
   price: number;
   quantity: number;
   image: string;
+  enOferta?: boolean;
 }
 
 interface ShoppingCartContextType {

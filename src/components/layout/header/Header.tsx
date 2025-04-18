@@ -59,7 +59,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="w-full bg-slate-900 sticky top-0 z-10">
+      <header className="w-full bg-slate-900 sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4 pt-4 sm:pt-5 pb-1 sm:pb-5 flex justify-between items-center relative">
           <div className="flex items-center gap-x-4">
             <div className="md:hidden" ref={menuButtonRef}>
@@ -140,3 +140,5 @@ export default function Header() {
     </>
   );
 }
+
+ 
