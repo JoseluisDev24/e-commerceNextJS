@@ -6,7 +6,7 @@
     "description": "Laptop con procesador Intel Core i7, 16GB de RAM y tarjeta gráfica NVIDIA GTX 1650, ideal para videojuegos y trabajo pesado.",
     "price": 1299.99,
     "quantity": 5,
-    "enOferta": false
+    "enOferta": true
   },
   {
     "id": "34f6d4b7-bf32-432f-809f-3fd6a29adcc5",
@@ -15,7 +15,7 @@
     "description": "Monitor de 27 pulgadas con resolución 4K UHD, ideal para trabajar con gráficos de alta resolución o disfrutar de contenido multimedia.",
     "price": 349.99,
     "quantity": 5,
-    "enOferta": false
+    "enOferta": true
   },
   {
     "id": "fcd8c2f6-5c48-4641-b529-dbe8a3dd8e78",
@@ -24,7 +24,7 @@
     "description": "Reloj inteligente con monitor de frecuencia cardíaca, GPS integrado y resistencia al agua.",
     "price": 199,
     "quantity": 5,
-    "enOferta": true
+    "enOferta": false
   },
   {
     "id": "87b3db70-e0b5-4a16-89f1-8fc470115176",
@@ -114,7 +114,7 @@
     "description": "Disco duro externo de 2TB con conectividad USB 3.0, ideal para almacenamiento adicional o respaldo de archivos.",
     "price": 89,
     "quantity": 5,
-    "enOferta": true
+    "enOferta": false
   },
   {
     "id": "90c02be3-0a2d-4704-84b1-383c06ec63e5",

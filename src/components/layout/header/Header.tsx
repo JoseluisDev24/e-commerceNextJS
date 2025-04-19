@@ -12,6 +12,7 @@ import SearchField from "../../searchField/SearchField";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function Header() {
   const [showCart, setShowCart] = useState(false);
@@ -71,9 +72,14 @@ export default function Header() {
             </div>
             <Link
               href={"/"}
-              className="font-semibold text-2xl sm:text-2xl text-white"
+              className="flex text-white gap-1 justify-center items-center text-xl font-semibold"
             >
-              E.Com
+              <Image
+                src="/logo.png"
+                alt="Logo"
+                width={30}
+                height={30}/>
+                Shop
             </Link>
           </div>
 

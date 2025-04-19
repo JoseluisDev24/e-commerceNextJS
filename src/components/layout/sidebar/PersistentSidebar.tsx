@@ -34,7 +34,7 @@ const PersistentSidebar = () => {
         color: "black",
         borderRight: "1px solid #e0e0e0",
         transition: "width 0.3s ease",
-        display: { xs: "none", md: "flex" },
+        display: { xs: "none", sm: "flex" },
         flexDirection: "column",
         zIndex: 1200,
         pt: 8,

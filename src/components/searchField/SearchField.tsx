@@ -11,7 +11,7 @@ function SearchField() {
         <TextField
           fullWidth
           type="text"
-          placeholder="Search product..."
+          placeholder="Buscar productos..."
           size="small"
           className="bg-white text-gray"
           slotProps={{

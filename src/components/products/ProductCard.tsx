@@ -1,9 +1,12 @@
 "use client";
 
 import { Product } from "@/context/ShoppingCartContext";
+import { useFavorites } from "@/context/FavoriteContext";
 import Image from "next/image";
 import clsx from "clsx";
 import Link from "next/link";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 interface Props {
   product: Product;
@@ -11,10 +14,13 @@ interface Props {
 }
 
 export default function ProductCard({ product, compact = false }: Props) {
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const favorite = isFavorite(product.id);
+
   return (
     <div
       className={clsx(
-        "relative rounded-lg border border-gray-400 bg-gray-400/5 flex flex-col h-full",
+        "relative rounded-lg border border-gray-400 shadow-lg bg-gray-400/5 flex flex-col h-full",
         compact && "max-w-[140px]"
       )}
     >
@@ -23,6 +29,18 @@ export default function ProductCard({ product, compact = false }: Props) {
           OFERTA
         </div>
       )}
+
+      <button
+        onClick={() => toggleFavorite(product)}
+        className="absolute bottom-2 right-2 z-10 p-1 rounded-full shadow"
+        aria-label="Agregar a favoritos"
+      >
+        {favorite ? (
+          <FavoriteIcon className="text-red-600 w-4 h-4"/>
+        ) : (
+          <FavoriteBorderIcon className="text-gray-500 w-4 h-4" />
+        )}
+      </button>
 
       <Link href={`/product/${product.id}`}>
         <Image
@@ -36,15 +54,13 @@ export default function ProductCard({ product, compact = false }: Props) {
           )}
           priority
         />
-      </Link>
 
-      <div
-        className={clsx(
-          "flex flex-col flex-grow gap-y-1 h-38 px-2 py-2",
-          !compact && "px-4 py-4 gap-y-3 h-32"
-        )}
-      >
-        <Link href={`/product/${product.id}`}>
+        <div
+          className={clsx(
+            "flex flex-col flex-grow gap-y-1 h-38 px-2 py-4",
+            !compact && "px-4 py-4 gap-y-3 h-32"
+          )}
+        >
           <h1
             className={clsx(
               "font-medium cursor-pointer",
@@ -54,20 +70,20 @@ export default function ProductCard({ product, compact = false }: Props) {
           >
             {product.name}
           </h1>
-        </Link>
 
-        {!compact && (
-          <p className="text-xs line-clamp-3">{product.description}</p>
-        )}
+          {!compact && (
+            <p className="text-xs line-clamp-3">{product.description}</p>
+          )}
 
-        <span className="font-medium text-sm">$ {product.price}</span>
+          <span className="font-medium text-sm">$ {product.price}</span>
 
-        {compact && (
-          <span className="text-xs pt-3 text-green-700">
-            Comprá hasta en 12 cuotas sin interés con todas tus tarjetas
-          </span>
-        )}
-      </div>
+          {compact && (
+            <span className="text-xs pt-3 text-green-700">
+              Comprá hasta en 12 cuotas sin interés con todas tus tarjetas
+            </span>
+          )}
+        </div>
+      </Link>
     </div>
   );
 }
