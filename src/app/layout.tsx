@@ -5,7 +5,8 @@ import PersistentSidebar from "@/components/layout/sidebar/PersistentSidebar";
 import Header from "../components/layout/header/Header";
 import { ShoppingCartProvider } from "@/context/ShoppingCartContext";
 import { AuthProvider } from "@/context/AuthContext";
-import { FavoritesProvider } from "@/context/FavoriteContext";
+import { FavoritesProvider } from "@/context/FavoritesContext";
+import Footer from "@/components/layout/footer/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,13 +27,14 @@ export default function RootLayout({
           <ShoppingCartProvider>
             <FavoritesProvider>
               <PersistentSidebar />
-            <div className="md:ml-16">
-              <Header />
-              <main>{children}</main>
-            </div>
+              <div className="md:ml-16">
+                <Header />
+                <main>{children}</main>
+              </div>
             </FavoritesProvider>
           </ShoppingCartProvider>
         </AuthProvider>
+        <Footer />
       </body>
     </html>
   );

@@ -2,9 +2,10 @@
 
 import {
   createContext,
+  useState,
+  useEffect,
   useCallback,
   useMemo,
-  useState,
   ReactNode,
 } from "react";
 
@@ -43,7 +44,26 @@ interface ShoppingCartProviderProps {
 export const ShoppingCartProvider = ({
   children,
 }: ShoppingCartProviderProps) => {
-  const [products, setProducts] = useState<Product[]>([]);
+  // Verificar si estamos en el cliente
+  const isClient = typeof window !== "undefined";
+
+  const loadProductsFromLocalStorage = (): Product[] => {
+    if (isClient) {
+      const storedProducts = localStorage.getItem("shoppingCart");
+      return storedProducts ? JSON.parse(storedProducts) : [];
+    }
+    return []; 
+  };
+
+  const [products, setProducts] = useState<Product[]>(
+    loadProductsFromLocalStorage
+  );
+
+  useEffect(() => {
+    if (isClient) {
+      localStorage.setItem("shoppingCart", JSON.stringify(products));
+    }
+  }, [products, isClient]);
 
   const totalAmount = useMemo(() => {
     return products.reduce(
@@ -59,8 +79,8 @@ export const ShoppingCartProvider = ({
   const addProduct = useCallback((product: Omit<Product, "quantity">) => {
     setProducts((prevProducts) => {
       const existingProduct = prevProducts.find((p) => p.id === product.id);
-      if (existingProduct) {
-        if (existingProduct.quantity === 10) return prevProducts;
+      if (existingProduct) {// Limite de cantidad
+        if (existingProduct.quantity === 10) return prevProducts; 
         return prevProducts.map((p) =>
           p.id === product.id ? { ...p, quantity: p.quantity + 1 } : p
         );
@@ -71,13 +91,15 @@ export const ShoppingCartProvider = ({
   }, []);
 
   const removeProduct = useCallback((productId: string) => {
-    setProducts((prevProducts) =>
-      prevProducts
+    setProducts((prevProducts) => {
+      const updatedProducts = prevProducts
         .map((p) =>
           p.id === productId ? { ...p, quantity: p.quantity - 1 } : p
         )
-        .filter((p) => p.quantity > 0)
-    );
+        .filter((p) => p.quantity > 0); 
+
+      return updatedProducts;
+    });
   }, []);
 
   const clearShoppingCart = useCallback(() => setProducts([]), []);

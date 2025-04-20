@@ -1,7 +1,7 @@
 "use client";
 
 import { Product } from "@/context/ShoppingCartContext";
-import { useFavorites } from "@/context/FavoriteContext";
+import { useFavorites } from "@/context/FavoritesContext";
 import Image from "next/image";
 import clsx from "clsx";
 import Link from "next/link";
@@ -20,7 +20,7 @@ export default function ProductCard({ product, compact = false }: Props) {
   return (
     <div
       className={clsx(
-        "relative rounded-lg border border-gray-400 shadow-lg bg-gray-400/5 flex flex-col h-full",
+        "relative rounded-lg border border-gray-400 shadow-lg bg-slate-50 flex flex-col h-full",
         compact && "max-w-[140px]"
       )}
     >
@@ -32,11 +32,11 @@ export default function ProductCard({ product, compact = false }: Props) {
 
       <button
         onClick={() => toggleFavorite(product)}
-        className="absolute bottom-2 right-2 z-10 p-1 rounded-full shadow"
+        className="absolute bottom-2 right-2 z-10 p-1 rounded-full shadow cursor-pointer"
         aria-label="Agregar a favoritos"
       >
         {favorite ? (
-          <FavoriteIcon className="text-red-600 w-4 h-4"/>
+          <FavoriteIcon className="text-red-600 w-4 h-4" />
         ) : (
           <FavoriteBorderIcon className="text-gray-500 w-4 h-4" />
         )}
@@ -47,24 +47,24 @@ export default function ProductCard({ product, compact = false }: Props) {
           src={product.image}
           alt={product.name}
           width={compact ? 60 : 100}
-          height={compact ? 60 : 100}
+          height={compact ? 70 : 110}
           className={clsx(
             "w-full object-contain bg-white mx-auto",
-            compact ? "h-28 p-2 rounded-2xl" : "h-32 rounded-lg"
+            compact ? "h-28 p-2 rounded-lg rounded-b-none" : "h-32 rounded-xl rounded-b-none "
           )}
           priority
         />
 
         <div
           className={clsx(
-            "flex flex-col flex-grow gap-y-1 h-38 px-2 py-4",
+            "flex flex-col flex-grow gap-y-2 h-40 px-2 py-4",
             !compact && "px-4 py-4 gap-y-3 h-32"
           )}
         >
           <h1
             className={clsx(
               "font-medium cursor-pointer",
-              compact ? "text-xs" : "text-sm sm:text-base",
+              compact ? "text-sm" : "sm:text-base",
               "line-clamp-1"
             )}
           >

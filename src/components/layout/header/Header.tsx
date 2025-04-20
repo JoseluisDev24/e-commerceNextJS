@@ -2,7 +2,6 @@
 
 import { useState, useMemo, useRef } from "react";
 import { useShoppingCart } from "@/hooks";
-import ShoppingCart from "@/components/shoppingCart/ShoppingCart";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -15,7 +14,6 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 export default function Header() {
-  const [showCart, setShowCart] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
   const menuButtonRef = useRef<HTMLDivElement | null>(null);
   const { products } = useShoppingCart();
@@ -74,12 +72,8 @@ export default function Header() {
               href={"/"}
               className="flex text-white gap-1 justify-center items-center text-xl font-semibold"
             >
-              <Image
-                src="/logo.png"
-                alt="Logo"
-                width={30}
-                height={30}/>
-                Shop
+              <Image src="/logo.png" alt="Logo" width={30} height={30} />
+              Shop
             </Link>
           </div>
 
@@ -88,21 +82,14 @@ export default function Header() {
           </div>
 
           <div className="relative flex items-center gap-2">
-            <button
-              className="hover:bg-slate-200/20 rounded-full p-2 text-white flex items-center gap-1"
-              onClick={() => setShowCart(!showCart)}
-            >
-              <ShoppingCartIcon />
-              <div className="bg-white p-1 text-xs text-gray-900 w-6 h-6 rounded-full">
-                <span>{totalQuantity}</span>
-              </div>
-            </button>
-
-            {showCart && (
-              <div className="absolute top-12 right-0 w-max z-50">
-                <ShoppingCart />
-              </div>
-            )}
+            <Link href="/cart">
+              <button className="hover:bg-slate-200/20 cursor-pointer rounded-full p-2 text-white flex items-center gap-1">
+                <ShoppingCartIcon />
+                <div className="bg-white p-1 text-xs text-gray-900 w-6 h-6 rounded-full">
+                  <span>{totalQuantity}</span>
+                </div>
+              </button>
+            </Link>
 
             {!isAuthenticated ? (
               <Button
@@ -138,13 +125,10 @@ export default function Header() {
           open={openDrawer}
           toggleDrawer={() => toggleDrawer(false)}
         />
-      <div className="block md:hidden px-4 py-2 bg-gray-900 pb-4 shadow">
-        <SearchField />
-      </div>
+        <div className="block md:hidden px-4 py-2 bg-gray-900 pb-4 shadow">
+          <SearchField />
+        </div>
       </header>
-
     </>
   );
 }
-
- 

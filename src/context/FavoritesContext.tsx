@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { Product } from "./ShoppingCartContext"; // reutilizamos el tipo
+import { Product } from "./ShoppingCartContext"; 
 
 type FavoritesContextType = {
   favorites: Product[];

@@ -10,7 +10,7 @@ import { useShoppingCart } from "@/hooks";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import IconButton from "@mui/material/IconButton";
-import { useFavorites } from "@/context/FavoriteContext";
+import { useFavorites } from "@/context/FavoritesContext";
 
 const dataProducts: Product[] = dataProductsJson as Product[];
 
@@ -38,15 +38,19 @@ export default function ProductDetailPage({
             alt={product.name}
             width={400}
             height={400}
-            className="rounded-lg bg-white p-4 max-w-[350px] mx-auto"
+            className="rounded-lg p-4 max-w-[350px] mx-auto"
             priority
           />
         </div>
 
         <div className="w-full lg:w-1/3 flex flex-col gap-4 relative">
           <div className="flex gap-2">
-              <h1 className="text-3xl font-bold">{product.name}</h1>
-            <IconButton onClick={() => toggleFavorite(product)}>
+            <h1 className="text-3xl font-bold">{product.name}</h1>
+            <IconButton
+              onClick={() => toggleFavorite(product)}
+              sx={{ width: 40, height: 40 }}
+              aria-label="Agregar a favoritos"
+            >
               {isFavorite(product.id) ? (
                 <FavoriteIcon className="text-red-500" />
               ) : (
@@ -99,14 +103,16 @@ export default function ProductDetailPage({
               Agregar al carrito
             </button>
 
-            <button className="bg-green-600 text-white px-4 py-3 rounded hover:bg-green-700 cursor-pointer">
-              Comprar ahora
-            </button>
+            <Link href="/checkout">
+              <button className="bg-green-700 text-white w-full px-4 py-3 rounded hover:bg-green-800 cursor-pointer">
+                Comprar ahora
+              </button>
+            </Link>
           </div>
 
           <Link
             href="/"
-            className="mt-4 block text-center text-sm text-indigo-600 hover:underline"
+            className="mt-1 block text-center text-sm text-indigo-600 hover:underline"
           >
             Volver a la tienda
           </Link>

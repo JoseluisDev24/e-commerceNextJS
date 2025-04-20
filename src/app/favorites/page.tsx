@@ -1,27 +1,86 @@
 "use client";
 
-import { useFavorites } from "@/context/FavoriteContext";
+import { useFavorites } from "@/context/FavoritesContext";
+import { useShoppingCart } from "@/hooks";
 import ProductCard from "@/components/products/ProductCard";
+import Link from "next/link";
+import { useState } from "react";
+import { Snackbar, Alert } from "@mui/material";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import IconButton from "@mui/material/IconButton";
+import { Product } from "@/context/ShoppingCartContext";
 
 export default function FavoritesPage() {
   const { favorites } = useFavorites();
+  const { addProduct } = useShoppingCart();
+  const [toastOpen, setToastOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+
+  const handleAddToCart = (product: Product) => {
+    addProduct(product);
+    setToastMessage(`${product.name} agregado al carrito`);
+    setToastOpen(true);
+  };
+
+  const hasFavorites = favorites.length > 0;
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-6">Tus productos favoritos</h1>
 
-      {favorites.length === 0 ? (
-        <p className="text-gray-600">Aún no tenés productos en favoritos.</p>
+      {!hasFavorites ? (
+        <p className="text-gray-600 mb-4">
+          Aún no tenés productos en favoritos.
+        </p>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-6">
           {favorites.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <div key={product.id} style={{ position: "relative" }}>
+              <ProductCard product={product} />
+              <IconButton
+                onClick={() => handleAddToCart(product)}
+                style={{
+                  position: "absolute",
+                  top: "10px",
+                  right: "10px",
+                  backgroundColor: "transparent",
+                  boxShadow: "none",
+                }}
+              >
+                <AddShoppingCartIcon />
+              </IconButton>
+            </div>
           ))}
         </div>
       )}
-      <button className="bg-green-600 w-full mt-4 text-white px-4 py-3 rounded hover:bg-green-700 cursor-pointer">
-        Comprar ahora
-      </button>
+
+      <Link href="/checkout">
+        <button
+          disabled={!hasFavorites}
+          className={`w-full px-6 py-3 mt-10 rounded text-white font-medium transition-colors duration-200 ${
+            hasFavorites
+              ? "bg-green-800 hover:bg-green-700"
+              : "bg-gray-300 cursor-not-allowed"
+          }`}
+        >
+          Comprar ahora
+        </button>
+      </Link>
+
+      <Snackbar
+        open={toastOpen}
+        autoHideDuration={3000}
+        onClose={() => setToastOpen(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={() => setToastOpen(false)}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          {toastMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
