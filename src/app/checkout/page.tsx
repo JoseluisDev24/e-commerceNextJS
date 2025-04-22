@@ -33,6 +33,7 @@ export default function CheckoutPage() {
                   alt={product.name}
                   width={50}
                   height={50}/>
+                  
                 <span>
                   {product.name} x {product.quantity}
                 </span>
@@ -42,7 +43,7 @@ export default function CheckoutPage() {
           </ul>
           <p className="text-lg font-semibold mb-4">Total: ${total}</p>
           <button
-            className="bg-green-800 text-white px-6 py-3 rounded hover:bg-green-700"
+            className="bg-green-800 text-white px-6 py-3 rounded cursor-pointer hover:bg-green-700"
             onClick={handleCheckout}
           >
             Confirmar y pagar

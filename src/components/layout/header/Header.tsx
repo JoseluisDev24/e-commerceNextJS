@@ -13,6 +13,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
+
 export default function Header() {
   const [openDrawer, setOpenDrawer] = useState(false);
   const menuButtonRef = useRef<HTMLDivElement | null>(null);
@@ -59,7 +60,7 @@ export default function Header() {
   return (
     <>
       <header className="w-full bg-slate-900 sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 pt-4 sm:pt-5 pb-1 sm:pb-5 flex justify-between items-center relative">
+        <div className="max-w-6xl mx-auto px-4 py-2 sm:py-3 flex justify-between items-center relative">
           <div className="flex items-center gap-x-4">
             <div className="md:hidden" ref={menuButtonRef}>
               <MenuIcon
@@ -70,17 +71,14 @@ export default function Header() {
             </div>
             <Link
               href={"/"}
-              className="flex text-white gap-1 justify-center items-center text-xl font-semibold"
+              className="hidden sm:flex text-white gap-1 justify-center items-center text-xl font-semibold"
             >
               <Image src="/logo.png" alt="Logo" width={30} height={30} />
               Shop
             </Link>
           </div>
 
-          <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-1/2">
-            <SearchField />
-          </div>
-
+          <SearchField />
           <div className="relative flex items-center gap-2">
             <Link href="/cart">
               <button className="hover:bg-slate-200/20 cursor-pointer rounded-full p-2 text-white flex items-center gap-1">
@@ -125,9 +123,9 @@ export default function Header() {
           open={openDrawer}
           toggleDrawer={() => toggleDrawer(false)}
         />
-        <div className="block md:hidden px-4 py-2 bg-gray-900 pb-4 shadow">
+        {/* <div className="block md:hidden px-4 py-2 bg-gray-900 pb-4 shadow">
           <SearchField />
-        </div>
+        </div> */}
       </header>
     </>
   );

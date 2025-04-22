@@ -1,6 +1,9 @@
+"use client";
+
 import ProductList from "@/components/products/ProductList";
 import Slider from "@/components/swiper/Slider";
 import OfertasSlider from "@/components/swiper/OfertasSlider";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
@@ -10,7 +13,9 @@ export default function Home() {
         Ofertas de la semana
       </span>
       <OfertasSlider />
-      <ProductList />
+      <Suspense fallback={<div>Loading search...</div>}>
+        <ProductList />
+      </Suspense>
     </div>
   );
 }

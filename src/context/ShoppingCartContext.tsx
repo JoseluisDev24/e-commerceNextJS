@@ -16,7 +16,7 @@ export interface Product {
   price: number;
   quantity: number;
   image: string;
-  enOferta?: boolean;
+  offer?: boolean;
 }
 
 interface ShoppingCartContextType {
@@ -44,7 +44,6 @@ interface ShoppingCartProviderProps {
 export const ShoppingCartProvider = ({
   children,
 }: ShoppingCartProviderProps) => {
-  // Verificar si estamos en el cliente
   const isClient = typeof window !== "undefined";
 
   const loadProductsFromLocalStorage = (): Product[] => {

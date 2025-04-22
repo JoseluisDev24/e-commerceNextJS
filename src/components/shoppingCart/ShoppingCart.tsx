@@ -23,7 +23,7 @@ export default function ShoppingCart() {
         {products.map((product) => (
           <div
             key={product.id}
-            className="flex gap-x-4 items-center hover:bg-gray-100 px-4 py-3 rounded-md"
+            className="flex gap-x-4 items-center hover:bg-gray-100 py-3 px-2 rounded-md"
           >
             <Link
               href={`/product/${product.id}`}
@@ -35,6 +35,7 @@ export default function ShoppingCart() {
                 width={40}
                 height={40}
                 className="rounded object-cover"
+                priority
               />
               <h5 className="text-sm sm:text-base font-medium whitespace-nowrap overflow-hidden text-ellipsis max-w-[120px] md:max-w-[250px]">
                 {product.name}
@@ -46,7 +47,7 @@ export default function ShoppingCart() {
             </span>
 
             <button
-              className="ml-2 bg-red-600 hover:bg-red-800 text-white w-8 h-8 rounded-full flex items-center justify-center"
+              className=" bg-red-600 hover:bg-red-800 text-white w-8 h-8 rounded-full flex items-center justify-center"
               onClick={() => removeProduct(product.id)}
             >
               <DeleteIcon fontSize="small" />

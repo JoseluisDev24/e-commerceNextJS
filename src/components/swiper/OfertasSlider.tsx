@@ -10,7 +10,7 @@ import ProductCard from "@/components/products/ProductCard";
 import dataProductsJson from "@/data.json";
 
 const dataProducts: Product[] = dataProductsJson as Product[];
-const productosEnOferta = dataProducts.filter((p) => p.enOferta);
+const productosEnOferta = dataProducts.filter((p) => p.offer);
 
 export default function OfertasSlider() {
   return (

@@ -1,18 +1,32 @@
-"use client"
+"use client";
 
-import { InputAdornment, TextField } from "@mui/material"
-import SearchIcon from "@mui/icons-material/Search"
-
+import { useState } from "react";
+import { InputAdornment, TextField } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import { useRouter } from "next/navigation";
 
 function SearchField() {
-    
-    return (
-      <div className="flex justify-center items-center gap-x-4">
+  const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/?search=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery("");
+    }
+  };
+
+  return (
+    <div className="px-4 py-2 w-2/3 flex justify-center items-center">
+      <form className="w-full" onSubmit={handleSubmit}>
         <TextField
           fullWidth
           type="text"
           placeholder="Buscar productos..."
           size="small"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
           className="bg-white text-gray"
           slotProps={{
             input: {
@@ -31,16 +45,21 @@ function SearchField() {
                 borderColor: "gray",
               },
               "&:hover fieldset": {
-                borderColor: "blue",
+                borderColor: "black",
               },
               "&.Mui-focused fieldset": {
-                borderColor: "darkblue",
+                borderColor: "black",
+              },
+              "& input": {
+                backgroundColor: "transparent !important",
+                transition: "background-color 9999s ease-in-out 0s",
               },
             },
           }}
         />
-      </div>
-    );
+      </form>
+    </div>
+  );
 }
 
-export default SearchField
+export default SearchField;

@@ -24,7 +24,7 @@ const ResponsiveSidebar = ({ open, toggleDrawer }: Props) => {
       open={open}
       onClose={toggleDrawer}
       ModalProps={{
-        keepMounted: true,
+        keepMounted: false,
       }}
     >
       <Box

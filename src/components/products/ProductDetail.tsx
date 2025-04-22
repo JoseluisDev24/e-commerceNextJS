@@ -1,33 +1,20 @@
 "use client";
 
-import { use } from "react";
-import { notFound } from "next/navigation";
-import { Product } from "@/context/ShoppingCartContext";
-import dataProductsJson from "@/data.json";
 import Image from "next/image";
 import Link from "next/link";
-import { useShoppingCart } from "@/hooks";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import IconButton from "@mui/material/IconButton";
-import { useFavorites } from "@/hooks";
+import { Product } from "@/context/ShoppingCartContext";
+import { useFavorites, useShoppingCart } from "@/hooks";
 
-const dataProducts: Product[] = dataProductsJson as Product[];
+type Props = {
+  product: Product;
+};
 
-export default function ProductDetailPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = use(params);
-  const product = dataProducts.find((p) => p.id === id);
-
+export default function ProductDetail({ product }: Props) {
   const { addProduct } = useShoppingCart();
   const { toggleFavorite, isFavorite } = useFavorites();
-
-  if (!product) {
-    notFound();
-  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6">

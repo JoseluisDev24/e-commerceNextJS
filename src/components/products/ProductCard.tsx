@@ -1,7 +1,7 @@
 "use client";
 
 import { Product } from "@/context/ShoppingCartContext";
-import { useFavorites } from "@/context/FavoritesContext";
+import { useFavorites } from "@/hooks";
 import Image from "next/image";
 import clsx from "clsx";
 import Link from "next/link";
@@ -21,10 +21,10 @@ export default function ProductCard({ product, compact = false }: Props) {
     <div
       className={clsx(
         "relative rounded-lg border border-gray-400 shadow-lg bg-slate-50 flex flex-col h-full",
-        compact && "max-w-[140px]"
+        compact && "max-w-[150px]"
       )}
     >
-      {product.enOferta && (
+      {product.offer && (
         <div className="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded z-10">
           OFERTA
         </div>
@@ -32,7 +32,7 @@ export default function ProductCard({ product, compact = false }: Props) {
 
       <button
         onClick={() => toggleFavorite(product)}
-        className="absolute bottom-2 right-2 z-10 p-1 rounded-full shadow cursor-pointer"
+        className="absolute bottom-2 right-2 z-10 p-1 rounded-full shadow cursor-pointer hover:bg-gray-200 transition-colors duration-300"
         aria-label="Agregar a favoritos"
       >
         {favorite ? (
@@ -57,8 +57,8 @@ export default function ProductCard({ product, compact = false }: Props) {
 
         <div
           className={clsx(
-            "flex flex-col flex-grow gap-y-2 h-40 px-2 py-4",
-            !compact && "px-4 py-4 gap-y-3 h-32"
+            "flex flex-col flex-grow gap-y-1 h-38 px-2 py-3",
+            !compact && "px-4 py-4 gap-y-4 h-32"
           )}
         >
           <h1
@@ -78,7 +78,7 @@ export default function ProductCard({ product, compact = false }: Props) {
           <span className="font-medium text-sm">$ {product.price}</span>
 
           {compact && (
-            <span className="text-xs pt-3 text-green-700">
+            <span className="text-xs pt-1 text-green-700">
               Comprá hasta en 12 cuotas sin interés con todas tus tarjetas
             </span>
           )}

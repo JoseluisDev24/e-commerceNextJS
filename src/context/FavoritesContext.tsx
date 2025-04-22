@@ -1,7 +1,7 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
-import { Product } from "./ShoppingCartContext"; 
+import { createContext, useEffect, useState } from "react";
+import { Product } from "./ShoppingCartContext";
 
 type FavoritesContextType = {
   favorites: Product[];
@@ -9,7 +9,7 @@ type FavoritesContextType = {
   isFavorite: (productId: string) => boolean;
 };
 
-const FavoritesContext = createContext<FavoritesContextType | undefined>(
+export const FavoritesContext = createContext<FavoritesContextType | undefined>(
   undefined
 );
 
@@ -18,14 +18,13 @@ export const FavoritesProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [favorites, setFavorites] = useState<Product[]>([]);
-
-  useEffect(() => {
-    const stored = localStorage.getItem("favorites");
-    if (stored) {
-      setFavorites(JSON.parse(stored));
+  const [favorites, setFavorites] = useState<Product[]>(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("favorites");
+      return stored ? JSON.parse(stored) : [];
     }
-  }, []);
+    return [];
+  });
 
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
@@ -55,9 +54,4 @@ export const FavoritesProvider = ({
   );
 };
 
-export const useFavorites = () => {
-  const context = useContext(FavoritesContext);
-  if (!context)
-    throw new Error("useFavorites debe usarse dentro de FavoritesProvider");
-  return context;
-};
+

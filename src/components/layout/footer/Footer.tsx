@@ -12,7 +12,7 @@ const paymentMethods = [
 
 export default function Footer() {
   return (
-    <footer className="bg-white text-gray-900 py-10 border border-t border-gray-300">
+    <footer className="bg-white text-gray-900 py-10 border border-t border-b-0 border-gray-300">
       <div className="max-w-6xl mx-auto px-4 flex flex-col items-center gap-6 text-center">
         <div>
           <h2 className="text-lg font-semibold mb-2">

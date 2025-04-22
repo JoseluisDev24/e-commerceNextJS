@@ -1,6 +1,6 @@
 "use client";
 
-import { useFavorites } from "@/context/FavoritesContext";
+import { useFavorites } from "@/hooks";
 import { useShoppingCart } from "@/hooks";
 import ProductCard from "@/components/products/ProductCard";
 import Link from "next/link";
@@ -33,7 +33,7 @@ export default function FavoritesPage() {
           Aún no tenés productos en favoritos.
         </p>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mb-6">
           {favorites.map((product) => (
             <div key={product.id} style={{ position: "relative" }}>
               <ProductCard product={product} />
@@ -41,8 +41,8 @@ export default function FavoritesPage() {
                 onClick={() => handleAddToCart(product)}
                 style={{
                   position: "absolute",
-                  top: "10px",
-                  right: "10px",
+                  bottom: "3px",
+                  right: "35px",
                   backgroundColor: "transparent",
                   boxShadow: "none",
                 }}
@@ -57,7 +57,7 @@ export default function FavoritesPage() {
       <Link href="/checkout">
         <button
           disabled={!hasFavorites}
-          className={`w-full px-6 py-3 mt-10 rounded text-white font-medium transition-colors duration-200 ${
+          className={`w-full px-6 py-3 mt-10 rounded text-white font-medium cursor-pointer transition-colors duration-200 ${
             hasFavorites
               ? "bg-green-800 hover:bg-green-700"
               : "bg-gray-300 cursor-not-allowed"
