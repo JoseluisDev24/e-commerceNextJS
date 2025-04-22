@@ -16,7 +16,6 @@ export default function ProductList() {
   const productSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Scroll automático cuando hay una búsqueda
     if (searchQuery && productSectionRef.current) {
       productSectionRef.current.scrollIntoView();
     }

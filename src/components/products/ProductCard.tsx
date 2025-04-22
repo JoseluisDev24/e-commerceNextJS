@@ -20,7 +20,7 @@ export default function ProductCard({ product, compact = false }: Props) {
   return (
     <div
       className={clsx(
-        "relative rounded-lg border border-gray-400 shadow-lg bg-slate-50 flex flex-col h-full",
+        "relative rounded-lg border border-gray-400 shadow-md bg-blue-950/2 flex flex-col h-full",
         compact && "max-w-[150px]"
       )}
     >

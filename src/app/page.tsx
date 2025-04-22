@@ -7,7 +7,7 @@ import { Suspense } from "react";
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-x-2 gap-y-4 sm:gap-y-6 bg-slate-50 pb-6">
+    <div className="flex flex-col gap-x-2 gap-y-4 sm:gap-y-6 bg-zinc-50 pb-6">
       <Slider />
       <span className="text-2xl font-semibold mx-5 px-1 bg-white text-gray-700 border border-gray-300 shadow-sm rounded-md">
         Ofertas de la semana

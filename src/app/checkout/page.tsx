@@ -27,23 +27,25 @@ export default function CheckoutPage() {
         <>
           <ul className="mb-6">
             {products.map((product) => (
-              <li key={product.id} className="flex justify-between mb-2">
+              <li key={product.id} className="flex justify-between mb-2 gap-8">
                 <Image
                   src={product.image}
                   alt={product.name}
                   width={50}
-                  height={50}/>
-                  
-                <span>
-                  {product.name} x {product.quantity}
-                </span>
-                <span>${product.price * product.quantity}</span>
+                  height={50}
+                />
+                <div className="flex justify-between items-center w-full ">
+                  <span>
+                    {product.name} x {product.quantity}
+                  </span>
+                  <span className="font-semibold">${product.price * product.quantity}</span>
+                </div>
               </li>
             ))}
           </ul>
           <p className="text-lg font-semibold mb-4">Total: ${total}</p>
           <button
-            className="bg-green-800 text-white px-6 py-3 rounded cursor-pointer hover:bg-green-700"
+            className="bg-green-800 text-white px-6 py-3 w-full rounded cursor-pointer hover:bg-green-700"
             onClick={handleCheckout}
           >
             Confirmar y pagar

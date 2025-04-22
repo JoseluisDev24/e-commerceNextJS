@@ -18,7 +18,7 @@ export default function Footer() {
           <h2 className="text-lg font-semibold mb-2">
             Métodos de pago aceptados
           </h2>
-          <p className="text-sm text-gray-900">
+          <p className="text-sm text-green-900">
             Pagá de forma segura con tus medios favoritos
           </p>
         </div>
@@ -38,7 +38,7 @@ export default function Footer() {
         </div>
 
         <div className="text-xs text-gray-700 mt-6">
-          © {new Date().getFullYear()} TuTienda. Todos los derechos reservados.
+          © {new Date().getFullYear()} Shop. Todos los derechos reservados.
         </div>
       </div>
     </footer>
