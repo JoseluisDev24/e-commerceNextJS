@@ -7,6 +7,8 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import IconButton from "@mui/material/IconButton";
 import { Product } from "@/context/ShoppingCartContext";
 import { useFavorites, useShoppingCart } from "@/hooks";
+import { useState } from "react";
+import { Snackbar, Alert } from "@mui/material";
 
 type Props = {
   product: Product;
@@ -15,6 +17,14 @@ type Props = {
 export default function ProductDetail({ product }: Props) {
   const { addProduct } = useShoppingCart();
   const { toggleFavorite, isFavorite } = useFavorites();
+  const [toastOpen, setToastOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+
+  const handleAddToCart = (product: Product) => {
+    addProduct(product);
+    setToastMessage(`${product.name} agregado al carrito`);
+    setToastOpen(true);
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6">
@@ -85,7 +95,7 @@ export default function ProductDetail({ product }: Props) {
 
             <button
               className="bg-indigo-600 text-white px-4 py-3 rounded hover:bg-indigo-700 cursor-pointer"
-              onClick={() => addProduct(product)}
+              onClick={() => handleAddToCart(product)}
             >
               Agregar al carrito
             </button>
@@ -103,6 +113,20 @@ export default function ProductDetail({ product }: Props) {
           >
             Volver a la tienda
           </Link>
+          <Snackbar
+            open={toastOpen}
+            autoHideDuration={3000}
+            onClose={() => setToastOpen(false)}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          >
+            <Alert
+              onClose={() => setToastOpen(false)}
+              severity="success"
+              sx={{ width: "100%" }}
+            >
+              {toastMessage}
+            </Alert>
+          </Snackbar>
         </div>
       </div>
     </div>

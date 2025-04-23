@@ -47,7 +47,7 @@ export default function ShoppingCart() {
             </span>
 
             <button
-              className=" bg-red-600 hover:bg-red-800 text-white w-8 h-8 rounded-full flex items-center justify-center"
+              className=" bg-red-600 hover:bg-red-800 text-white w-8 h-8 rounded-full flex items-center justify-center cursor-pointer"
               onClick={() => removeProduct(product.id)}
             >
               <DeleteIcon fontSize="small" />
@@ -67,7 +67,7 @@ export default function ShoppingCart() {
       </div>
 
       <button
-        className="w-full bg-gray-600 text-white px-4 py-3 mt-4 rounded hover:bg-gray-500"
+        className="w-full bg-gray-800 text-white px-4 py-3 mt-4 rounded hover:bg-gray-700 cursor-pointer"
         onClick={clearShoppingCart}
       >
         Vaciar carrito

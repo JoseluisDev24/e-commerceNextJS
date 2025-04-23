@@ -66,6 +66,12 @@ export default function FavoritesPage() {
           Comprar ahora
         </button>
       </Link>
+      <Link
+        href="/"
+        className="mt-3 block text-center text-sm text-indigo-600 hover:underline"
+      >
+        Volver a la tienda
+      </Link>
 
       <Snackbar
         open={toastOpen}

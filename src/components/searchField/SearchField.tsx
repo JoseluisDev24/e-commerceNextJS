@@ -18,7 +18,7 @@ function SearchField() {
   };
 
   return (
-    <div className="px-4 py-2 w-2/3 flex justify-center items-center">
+    <div className="md:px-4 py-2 w-2/3 flex justify-center items-center">
       <form className="w-full" onSubmit={handleSubmit}>
         <TextField
           fullWidth
