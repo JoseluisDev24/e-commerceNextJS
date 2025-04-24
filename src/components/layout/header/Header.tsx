@@ -71,7 +71,7 @@ export default function Header() {
             </div>
             <Link
               href={"/"}
-              className="hidden sm:flex text-white gap-1 justify-center items-center text-xl font-semibold"
+              className="hidden sm:flex sm:pl-4 text-white gap-1 justify-center items-center text-xl font-semibold"
             >
               <Image src="/logo.png" alt="Logo" width={30} height={30} />
               Shop

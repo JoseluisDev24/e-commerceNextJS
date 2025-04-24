@@ -39,10 +39,10 @@ export default function FavoritesPage() {
               <ProductCard product={product} />
               <IconButton
                 onClick={() => handleAddToCart(product)}
-                style={{
+                sx={{
                   position: "absolute",
-                  bottom: "3px",
-                  right: "35px",
+                  bottom: { xs: "1px", sm: "3px" },
+                  right: { xs: "35px", sm: "38px" },
                   backgroundColor: "transparent",
                   boxShadow: "none",
                 }}

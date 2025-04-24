@@ -32,13 +32,13 @@ export default function ProductCard({ product, compact = false }: Props) {
 
       <button
         onClick={() => toggleFavorite(product)}
-        className="absolute bottom-2 right-2 z-10 p-1 rounded-full shadow cursor-pointer hover:bg-gray-200 transition-colors duration-300"
+        className="absolute bottom-2 sm:p-1 right-2 z-10 rounded-full shadow cursor-pointer hover:bg-gray-200 transition-colors duration-200"
         aria-label="Agregar a favoritos"
       >
         {favorite ? (
-          <FavoriteIcon className="text-red-600 w-4 h-4" />
+          <FavoriteIcon className="text-red-600" />
         ) : (
-          <FavoriteBorderIcon className="text-gray-500 w-4 h-4" />
+          <FavoriteBorderIcon className="text-gray-500" />
         )}
       </button>
 

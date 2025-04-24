@@ -46,7 +46,10 @@ const PersistentSidebar = () => {
         display: { xs: "none", sm: "flex" },
         flexDirection: "column",
         zIndex: 1200,
-        pt: 8,
+        pt: {
+          sm: 0,
+          md: 8,
+        },
       }}
     >
       <List>
@@ -75,7 +78,6 @@ const PersistentSidebar = () => {
 
         <Divider sx={{ my: 1 }} />
 
-        {/* Ítems condicionales por autenticación */}
         {!isAuthenticated ? (
           <ListItemButton
             component={Link}

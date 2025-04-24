@@ -40,12 +40,11 @@ const ResponsiveSidebar = ({ open, toggleDrawer }: Props) => {
       ModalProps={{ keepMounted: false }}
       sx={{
         "& .MuiDrawer-root": {
-          // No usamos pointerEvents, solo controlamos inert
         },
       }}
     >
       <Box
-        sx={{ width: 240, pt: 8 }}
+        sx={{ width: 240, pt: 8  }}
         role="presentation"
         onClick={toggleDrawer}
         onKeyDown={toggleDrawer}

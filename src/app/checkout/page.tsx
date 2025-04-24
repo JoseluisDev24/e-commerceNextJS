@@ -2,6 +2,7 @@
 
 import { useShoppingCart } from "@/hooks";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function CheckoutPage() {
@@ -50,6 +51,12 @@ export default function CheckoutPage() {
           >
             Confirmar y pagar
           </button>
+          <Link
+                      href="/"
+                      className="mt-3 block text-center text-sm text-indigo-600 hover:underline"
+                    >
+                      Volver a la tienda
+                    </Link>
         </>
       )}
     </div>
