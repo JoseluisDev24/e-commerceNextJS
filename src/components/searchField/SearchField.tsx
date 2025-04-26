@@ -29,6 +29,7 @@ function SearchField() {
           type="text"
           placeholder="Buscar productos..."
           size="small"
+          inputRef={inputRef}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="bg-white text-gray"
