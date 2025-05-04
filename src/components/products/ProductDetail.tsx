@@ -15,6 +15,7 @@ type Props = {
 };
 
 export default function ProductDetail({ product }: Props) {
+  console.log("Producto recibido en ProductDetail:", product);
   const { addProduct } = useShoppingCart();
   const { toggleFavorite, isFavorite } = useFavorites();
   const [toastOpen, setToastOpen] = useState(false);

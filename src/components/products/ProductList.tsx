@@ -1,18 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
-import dataProductsJson from "@/data.json";
 import ProductCard from "@/components/products/ProductCard";
-import { Product } from "@/context/ShoppingCartContext";
-
-const dataProducts: Product[] = dataProductsJson as Product[];
+import { useProducts } from "@/queries/products"; // Importamos el hook
 
 export default function ProductList() {
   const searchParams = useSearchParams();
-  const searchQuery = searchParams.get("search") || "";
-  const [filteredProducts, setFilteredProducts] =
-    useState<Product[]>(dataProducts);
+  const searchQuery = searchParams.get("search") || ""; // Obtenemos el término de búsqueda de la URL
+  const { products, loading, error } = useProducts(searchQuery); // Usamos el hook con el término de búsqueda
   const productSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -21,25 +17,13 @@ export default function ProductList() {
     }
   }, [searchQuery]);
 
-  useEffect(() => {
-    const normalizeString = (str: string) =>
-      str
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLowerCase();
+  if (loading) {
+    return <p className="text-center">Cargando productos...</p>;
+  }
 
-    const normalizedQuery = normalizeString(searchQuery);
-    const queryWords = normalizedQuery
-      .split(" ")
-      .filter((word) => word.trim() !== "");
-
-    const filtered = dataProducts.filter((product) => {
-      const normalizedProductName = normalizeString(product.name);
-      return queryWords.every((word) => normalizedProductName.startsWith(word));
-    });
-
-    setFilteredProducts(filtered);
-  }, [searchQuery]);
+  if (error) {
+    return <p className="text-center text-red-500">{error}</p>;
+  }
 
   return (
     <div ref={productSectionRef} className="w-full max-w-6xl px-4 mx-auto mt-6">
@@ -49,13 +33,13 @@ export default function ProductList() {
         </h1>
       )}
 
-      {filteredProducts.length === 0 ? (
+      {products.length === 0 ? (
         <p className="text-center text-gray-400">
           No se encontraron productos.
         </p>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 sm:gap-4">
-          {filteredProducts.map((product) => (
+          {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>

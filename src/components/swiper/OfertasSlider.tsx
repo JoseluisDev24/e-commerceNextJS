@@ -1,18 +1,32 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 
-import { Product } from "@/context/ShoppingCartContext";
+import { Product, useProducts } from "@/queries/products";
 import ProductCard from "@/components/products/ProductCard";
-import dataProductsJson from "@/data.json";
-
-const dataProducts: Product[] = dataProductsJson as Product[];
-const productosEnOferta = dataProducts.filter((p) => p.offer);
 
 export default function OfertasSlider() {
+  const { products, loading, error } = useProducts(); 
+  const [productosEnOferta, setProductosEnOferta] = useState<Product[]>([]);
+
+  useEffect(() => {
+    if (!loading && !error) {
+      setProductosEnOferta(products.filter((p) => p.offer));
+    }
+  }, [products, loading, error]); 
+
+  if (loading) {
+    return <p className="text-center">Cargando ofertas...</p>;
+  }
+
+  if (error) {
+    return <p className="text-red-500">{error}</p>;
+  }
+
   return (
     <div className="relative px-4">
       <div className="hidden md:block">
@@ -23,7 +37,7 @@ export default function OfertasSlider() {
       <Swiper
         modules={[Autoplay, Navigation]}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
-        loop={true}
+        loop={false}
         navigation={{
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
@@ -31,11 +45,15 @@ export default function OfertasSlider() {
         slidesPerView={"auto"}
         spaceBetween={12}
       >
-        {productosEnOferta.map((product) => (
-          <SwiperSlide key={product.id} className="!w-[140px]">
-            <ProductCard product={product} compact />
-          </SwiperSlide>
-        ))}
+        {productosEnOferta.length > 0 ? (
+          productosEnOferta.map((product) => (
+            <SwiperSlide key={product.id} className="!w-[140px]">
+              <ProductCard product={product} compact />
+            </SwiperSlide>
+          ))
+        ) : (
+          <p className="text-center">No hay productos en oferta actualmente.</p>
+        )}
       </Swiper>
     </div>
   );

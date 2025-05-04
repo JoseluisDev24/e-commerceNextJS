@@ -42,7 +42,7 @@ export default function ProductCard({ product, compact = false }: Props) {
         )}
       </button>
 
-      <Link href={`/product/${product.id}`}>
+      <Link href={`/products/${product.id}`}>
         <Image
           src={product.image}
           alt={product.name}
