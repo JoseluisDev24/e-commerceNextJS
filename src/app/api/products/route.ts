@@ -7,6 +7,7 @@ const normalizeText = (text: string) =>
 
 export async function GET(request: Request) {
   try {
+    console.log("✅ API /api/products alcanzada");
     await dbConnect();
 
     // Obtener y normalizar el término de búsqueda desde los parámetros de la URL
