@@ -1,30 +1,40 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import IconButton from "@mui/material/IconButton";
+import { Snackbar, Alert } from "@mui/material";
 import { Product } from "@/context/ShoppingCartContext";
 import { useFavorites, useShoppingCart } from "@/hooks";
 import { useState } from "react";
-import { Snackbar, Alert } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 type Props = {
   product: Product;
 };
 
 export default function ProductDetail({ product }: Props) {
-  console.log("Producto recibido en ProductDetail:", product);
-  const { addProduct } = useShoppingCart();
+  const { addProduct, products } = useShoppingCart();
   const { toggleFavorite, isFavorite } = useFavorites();
   const [toastOpen, setToastOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+  const router = useRouter();
 
   const handleAddToCart = (product: Product) => {
     addProduct(product);
     setToastMessage(`${product.name} agregado al carrito`);
     setToastOpen(true);
+  };
+
+  const handleBuyNow = () => {
+    const isInCart = products.some((item) => item.id === product.id);
+    if (!isInCart) {
+      addProduct(product);
+      setToastMessage(`${product.name} agregado al carrito`);
+      setToastOpen(true);
+    }
+    router.push("/checkout");
   };
 
   return (
@@ -101,19 +111,21 @@ export default function ProductDetail({ product }: Props) {
               Agregar al carrito
             </button>
 
-            <Link href="/checkout">
-              <button className="bg-green-700 text-white w-full px-4 py-3 rounded hover:bg-green-800 cursor-pointer">
-                Comprar ahora
-              </button>
-            </Link>
+            <button
+              className="bg-green-700 text-white w-full px-4 py-3 rounded hover:bg-green-800 cursor-pointer"
+              onClick={handleBuyNow}
+            >
+              Comprar ahora
+            </button>
           </div>
 
-          <Link
-            href="/"
-            className="mt-1 block text-center text-sm text-indigo-600 hover:underline"
+          <button
+            onClick={() => router.push("/")}
+            className="mt-1 block text-center text-sm text-indigo-600 hover:underline w-full"
           >
             Volver a la tienda
-          </Link>
+          </button>
+
           <Snackbar
             open={toastOpen}
             autoHideDuration={3000}

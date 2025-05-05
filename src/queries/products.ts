@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import httpClient from "@/services/httpClient";
-import { API} from "@/utils/constants";
+import { API } from "@/utils/constants";
 
 export interface Product {
   _id: string;
@@ -26,9 +26,13 @@ export const useProducts = (searchQuery: string = "") => {
     const fetchProducts = async () => {
       try {
         let url = API.PRODUCTS;
+        const normalize = (text: string) =>
+          text.normalize("NFD").replace(/\p{Diacritic}/gu, "");
+
         if (searchQuery) {
-          url = `${url}?search=${encodeURIComponent(searchQuery)}`;
+          url = `${url}?search=${encodeURIComponent(normalize(searchQuery))}`;
         }
+
 
         const { data } = await httpClient.get<Product[]>(url);
         setProducts(data);
@@ -42,7 +46,7 @@ export const useProducts = (searchQuery: string = "") => {
     };
 
     fetchProducts();
-  }, [searchQuery]); 
+  }, [searchQuery]);
 
   return { products, loading, error };
 };

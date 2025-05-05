@@ -14,7 +14,7 @@ export default function CheckoutPage() {
   const handleCheckout = () => {
     // Aquí iría integración con una pasarela de pago
     alert("Gracias por tu compra");
-    clearShoppingCart(); 
+    clearShoppingCart();
     router.push("/");
   };
 
@@ -39,7 +39,9 @@ export default function CheckoutPage() {
                   <span>
                     {product.name} x {product.quantity}
                   </span>
-                  <span className="font-semibold">${product.price * product.quantity}</span>
+                  <span className="font-semibold">
+                    ${product.price * product.quantity}
+                  </span>
                 </div>
               </li>
             ))}
@@ -52,11 +54,17 @@ export default function CheckoutPage() {
             Confirmar y pagar
           </button>
           <Link
-                      href="/"
-                      className="mt-3 block text-center text-sm text-indigo-600 hover:underline"
-                    >
-                      Volver a la tienda
-                    </Link>
+            href="/"
+            className="mt-3 block text-center text-sm text-indigo-600 hover:underline"
+          >
+            Volver a la tienda
+          </Link>
+          <Link
+            href="/cart"
+            className="mt-3 block text-center text-sm text-indigo-600 hover:underline"
+          >
+            Ver carrito
+          </Link>
         </>
       )}
     </div>

@@ -3,10 +3,11 @@ import ProductDetail from "@/components/products/ProductDetail";
 import { notFound } from "next/navigation";
 
 export default async function ProductDetailPage(
-  {params}: {params: { id: string };
+  {params}: {params: Promise<{ id: string }>;
 }) {
   try {
-    const product = await getProductById(params.id);
+    const productId = (await params).id;
+    const product = await getProductById(productId);
     return (
       <div>
         <ProductDetail product={product} />
