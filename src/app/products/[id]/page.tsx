@@ -2,6 +2,9 @@ import { getProductById } from "@/api/products";
 import ProductDetail from "@/components/products/ProductDetail";
 import { notFound } from "next/navigation";
 
+
+
+
 export default async function ProductDetailPage(
   {params}: {params: Promise<{ id: string }>;
 }) {

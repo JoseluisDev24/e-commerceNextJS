@@ -1,46 +1,72 @@
 "use client";
-
 import { createContext, useContext, useEffect, useState } from "react";
 
-type AuthContextType = {
-  isAuthenticated: boolean;
-  login: (email: string, password: string) => boolean;
-  logout: () => void;
-};
+interface User {
+  userId: string;
+  email: string;
+  role: string;
+}
 
-const AuthContext = createContext<AuthContextType>({
-  isAuthenticated: false,
-  login: () => false,
-  logout: () => {},
-});
+interface AuthContextType {
+  user: User | null;
+  isAuthenticated: boolean;
+  login: (email: string, password: string) => Promise<User | null>;
+  logout: () => void;
+}
+
+const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setIsAuthenticated(true);
-    }
-  }, []);
+  const login = async (
+    email: string,
+    password: string
+  ): Promise<User | null> => {
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+        headers: { "Content-Type": "application/json" },
+      });
 
-  const login = (email: string, password: string) => {
-    // Simulación de login exitoso
-    if (email && password) {
-      localStorage.setItem("token", "fake-jwt-token");
-      setIsAuthenticated(true);
-      return true;
+      if (!res.ok) return null;
+
+      const fetchedUser = await getUserFromCookie();
+      return fetchedUser;
+    } catch {
+      return null;
     }
-    return false;
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
+    document.cookie = "token=; Max-Age=0; path=/";
+    setUser(null);
     setIsAuthenticated(false);
+    window.location.href = "/login";
   };
 
+  const getUserFromCookie = async (): Promise<User | null> => {
+    const res = await fetch("/api/me");
+    if (res.ok) {
+      const data = await res.json();
+      setUser(data.user);
+      setIsAuthenticated(true);
+      return data.user;
+    }
+
+    setUser(null);
+    setIsAuthenticated(false);
+    return null;
+  };
+
+  useEffect(() => {
+    getUserFromCookie();
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

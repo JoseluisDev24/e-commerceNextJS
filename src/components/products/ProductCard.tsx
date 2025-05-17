@@ -1,6 +1,6 @@
 "use client";
 
-import { Product } from "@/context/ShoppingCartContext";
+import { Product } from "@/types/product"; // Importamos la interfaz Product desde el archivo de tipos
 import { useFavorites } from "@/hooks";
 import Image from "next/image";
 import clsx from "clsx";

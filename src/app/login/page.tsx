@@ -1,61 +1,132 @@
 "use client";
-
 import { useState } from "react";
-import { TextField, Button } from "@mui/material";
-import { useRouter } from "next/navigation";
+import {
+  Box,
+  Button,
+  Container,
+  TextField,
+  Typography,
+  Alert,
+  Paper,
+  IconButton,
+  InputAdornment,
+  Link,
+} from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
 
-export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export default function LoginForm() {
   const { login } = useAuth();
   const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const success = login(email, password);
-    if (success) {
-      router.push("/");
+    const user = await login(email, password);
+    if (user) {
+      if (user.role === "admin") {
+        router.push("/admin");
+      } else {
+        router.push("/");
+      }
     } else {
-      alert("Credenciales inválidas");
+      setError("Credenciales inválidas");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-start md:items-center justify-center bg-gray-200 pt-20 md:pt-0 px-4">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white shadow-md rounded-xl p-8 w-full max-w-md space-y-6"
-      >
-        <h1 className="text-2xl font-bold text-center">Iniciar sesión</h1>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#f5f5f5",
+        p: 2,
+      }}
+    >
+      <Container maxWidth="sm">
+        <Paper elevation={3} sx={{ p: 4 }}>
+          <Typography variant="h5" align="center" gutterBottom>
+            Iniciar Sesión
+          </Typography>
 
-        <TextField
-          label="Email"
-          type="email"
-          fullWidth
-          sx={{ mb: 1 }}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+          {error && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {error}
+            </Alert>
+          )}
 
-        <TextField
-          label="Contraseña"
-          type="password"
-          fullWidth
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <Box component="form" onSubmit={handleSubmit} noValidate>
+            <TextField
+              fullWidth
+              label="Email"
+              margin="normal"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              autoComplete="email"
+            />
 
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          fullWidth
-          sx={{ mt: 2 }}
-        >
-          Entrar
-        </Button>
-      </form>
-    </div>
+            <TextField
+              fullWidth
+              label="Contraseña"
+              margin="normal"
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              autoComplete="current-password"
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={() => setShowPassword(!showPassword)}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                },  
+              }}
+            />
+
+            <Button
+              fullWidth
+              type="submit"
+              variant="contained"
+              color="primary"
+              sx={{ mt: 3 }}
+            >
+              Ingresar
+            </Button>
+
+            <Box sx={{ mt: 2, textAlign: "center" }}>
+              <Typography variant="body2">
+                ¿No tenés cuenta?{" "}
+                <Link
+                  href="/register"
+                  underline="hover"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    router.push("/register");
+                  }}
+                >
+                  Registrarse
+                </Link>
+              </Typography>
+            </Box>
+          </Box>
+        </Paper>
+      </Container>
+    </Box>
   );
 }

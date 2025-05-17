@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import httpClient from "@/services/httpClient";
 import { API } from "@/utils/constants";
 
@@ -22,31 +22,40 @@ export const useProducts = (searchQuery: string = "") => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        let url = API.PRODUCTS;
-        const normalize = (text: string) =>
-          text.normalize("NFD").replace(/\p{Diacritic}/gu, "");
+  // ✅ Función separada para reutilizar al hacer refetch
+  const fetchProducts = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
 
-        if (searchQuery) {
-          url = `${url}?search=${encodeURIComponent(normalize(searchQuery))}`;
-        }
+      let url = API.PRODUCTS;
+      const normalize = (text: string) =>
+        text.normalize("NFD").replace(/\p{Diacritic}/gu, "");
 
-
-        const { data } = await httpClient.get<Product[]>(url);
-        setProducts(data);
-      } catch (err) {
-        setError(
-          err instanceof Error ? err.message : "Error al cargar los productos"
-        );
-      } finally {
-        setLoading(false);
+      if (searchQuery) {
+        url = `${url}?search=${encodeURIComponent(normalize(searchQuery))}`;
       }
-    };
 
-    fetchProducts();
+      const { data } = await httpClient.get<Product[]>(url);
+      setProducts(data);
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Error al cargar los productos"
+      );
+    } finally {
+      setLoading(false);
+    }
   }, [searchQuery]);
 
-  return { products, loading, error };
+  // 🚀 Ejecuta la función cuando se monta o cambia la búsqueda
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
+
+  return {
+    products,
+    loading,
+    error,
+    refetch: fetchProducts, // ✅ función que podés usar desde cualquier componente
+  };
 };

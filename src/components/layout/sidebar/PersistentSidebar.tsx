@@ -16,12 +16,13 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { useAuth } from "@/context/AuthContext";
 import { menuItems } from "./MenuItems";
 
 const PersistentSidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout, user } = useAuth(); // 🔥 Asegurarse de incluir "user"
 
   const toggleCollapse = () => {
     setIsCollapsed((prev) => !prev);
@@ -139,6 +140,29 @@ const PersistentSidebar = () => {
               </ListItemIcon>
               {!isCollapsed && <ListItemText primary="Configuración" />}
             </ListItemButton>
+
+            {/* 🔒 Solo mostrar si el usuario es admin */}
+            {user?.role === "admin" && (
+              <ListItemButton
+                component={Link}
+                href="/admin"
+                sx={{
+                  justifyContent: isCollapsed ? "center" : "flex-start",
+                  px: 2,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: isCollapsed ? 0 : 2,
+                    justifyContent: "center",
+                  }}
+                >
+                  <AdminPanelSettingsIcon aria-hidden="true" />
+                </ListItemIcon>
+                {!isCollapsed && <ListItemText primary="Admin" />}
+              </ListItemButton>
+            )}
 
             <ListItemButton
               onClick={handleLogout}

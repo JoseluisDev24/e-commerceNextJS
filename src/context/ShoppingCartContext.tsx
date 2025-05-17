@@ -8,16 +8,7 @@ import {
   useMemo,
   ReactNode,
 } from "react";
-
-export interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  quantity: number;
-  image: string;
-  offer?: boolean;
-}
+import { Product } from "@/types/product"; 
 
 interface ShoppingCartContextType {
   products: Product[];
@@ -51,7 +42,7 @@ export const ShoppingCartProvider = ({
       const storedProducts = localStorage.getItem("shoppingCart");
       return storedProducts ? JSON.parse(storedProducts) : [];
     }
-    return []; 
+    return [];
   };
 
   const [products, setProducts] = useState<Product[]>(
@@ -78,8 +69,9 @@ export const ShoppingCartProvider = ({
   const addProduct = useCallback((product: Omit<Product, "quantity">) => {
     setProducts((prevProducts) => {
       const existingProduct = prevProducts.find((p) => p.id === product.id);
-      if (existingProduct) {// Limite de cantidad
-        if (existingProduct.quantity === 10) return prevProducts; 
+      if (existingProduct) {
+        // Limite de cantidad
+        if (existingProduct.quantity === 10) return prevProducts;
         return prevProducts.map((p) =>
           p.id === product.id ? { ...p, quantity: p.quantity + 1 } : p
         );
@@ -95,7 +87,7 @@ export const ShoppingCartProvider = ({
         .map((p) =>
           p.id === productId ? { ...p, quantity: p.quantity - 1 } : p
         )
-        .filter((p) => p.quantity > 0); 
+        .filter((p) => p.quantity > 0);
 
       return updatedProducts;
     });

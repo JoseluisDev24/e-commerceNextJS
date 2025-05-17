@@ -8,7 +8,7 @@ import { useState } from "react";
 import { Snackbar, Alert } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import IconButton from "@mui/material/IconButton";
-import { Product } from "@/context/ShoppingCartContext";
+import { Product } from "@/types/product";
 
 export default function FavoritesPage() {
   const { favorites } = useFavorites();

@@ -1,12 +1,18 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  reactStrictMode: true,
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'http2.mlstatic.com',
+        protocol: "https",
+        hostname: "http2.mlstatic.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.distribuidorabebidas.com.uy",
+        pathname: "/**",
       },
     ],
   },

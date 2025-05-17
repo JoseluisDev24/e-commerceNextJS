@@ -12,6 +12,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -24,7 +25,7 @@ interface Props {
 }
 
 const ResponsiveSidebar = ({ open, toggleDrawer }: Props) => {
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout, user } = useAuth();
   const router = useRouter();
 
   const handleLogout = () => {
@@ -38,13 +39,9 @@ const ResponsiveSidebar = ({ open, toggleDrawer }: Props) => {
       open={open}
       onClose={toggleDrawer}
       ModalProps={{ keepMounted: false }}
-      sx={{
-        "& .MuiDrawer-root": {
-        },
-      }}
     >
       <Box
-        sx={{ width: 240, pt: 8  }}
+        sx={{ width: 240, pt: 8 }}
         role="presentation"
         onClick={toggleDrawer}
         onKeyDown={toggleDrawer}
@@ -82,6 +79,15 @@ const ResponsiveSidebar = ({ open, toggleDrawer }: Props) => {
                 </ListItemIcon>
                 <ListItemText primary="Perfil" />
               </ListItemButton>
+
+              {user?.role === "admin" && (
+                <ListItemButton component={Link} href="/admin" sx={{ px: 2 }}>
+                  <ListItemIcon>
+                    <AdminPanelSettingsIcon aria-hidden="true" />
+                  </ListItemIcon>
+                  <ListItemText primary="Admin" />
+                </ListItemButton>
+              )}
 
               <ListItemButton component={Link} href="/settings" sx={{ px: 2 }}>
                 <ListItemIcon>

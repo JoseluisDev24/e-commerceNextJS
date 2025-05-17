@@ -5,7 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { Snackbar, Alert } from "@mui/material";
-import { Product } from "@/context/ShoppingCartContext";
+import { Product } from "@/types/product"; // Importamos la interfaz Product desde el archivo de tipos
 import { useFavorites, useShoppingCart } from "@/hooks";
 import { useState } from "react";
 import { useRouter } from "next/navigation";

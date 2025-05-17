@@ -1,25 +1,14 @@
-import mongoose from "mongoose";
+import { Schema, model, models, Document } from "mongoose";
+import { Product } from "../types/product";
 
-const { Schema, model, models } = mongoose;
+// Creamos un tipo de documento excluyendo "id", ya que Mongoose usa "_id"
+type ProductDocument = Omit<Product, "id"> & Document;
 
-export interface Product extends mongoose.Document {
-  id: string;
-  name: string;
-  image: string;
-  description: string;
-  price: number;
-  quantity: number;
-  offer: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-const schema = new Schema(
+const productSchema = new Schema<ProductDocument>(
   {
-    id: { type: String, required: true, unique: true },
     name: { type: String, required: true },
     image: { type: String, required: true },
-    description: { type: String },
+    description: { type: String, required: true },
     price: { type: Number, required: true },
     quantity: { type: Number, required: true },
     offer: { type: Boolean, required: true },
@@ -29,5 +18,17 @@ const schema = new Schema(
   }
 );
 
-const ProductModel = models.Product || model<Product>("Product", schema);
+// Al convertir a JSON, incluir "id" (desde "_id") y eliminar "_id" y "__v"
+productSchema.set("toJSON", {
+  virtuals: true,
+  versionKey: false,
+  transform: (_, ret) => {
+    ret.id = ret._id.toString(); // agregamos el id como string
+    delete ret._id; // eliminamos el campo _id
+  },
+});
+
+const ProductModel =
+  models.Product || model<ProductDocument>("Product", productSchema);
+
 export default ProductModel;

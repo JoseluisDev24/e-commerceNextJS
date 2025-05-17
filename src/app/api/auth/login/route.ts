@@ -1,19 +1,5 @@
-import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
-
-const JWT_SECRET = process.env.JWT_KEY || "test";
-
-export function signToken(payload: object) {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" });
-}
-
-export function verifyToken(token: string) {
-  try {
-    return jwt.verify(token, JWT_SECRET);
-  } catch {
-    throw new Error("Token inválido");
-  }
-}
+import { signToken } from "@/utils/auth"; 
 
 const users = [
   {
@@ -23,8 +9,8 @@ const users = [
     role: "admin",
   },
   { userId: "2", email: "gonza@test.com", password: "test", role: "admin" },
-  { userId: "2", email: "victor@test.com", password: "test", role: "admin" },
-  { userId: "2", email: "toti@test.com", password: "test", role: "user" },
+  { userId: "3", email: "victor@test.com", password: "test", role: "admin" },
+  { userId: "4", email: "toti@test.com", password: "test", role: "user" },
 ];
 
 export async function POST(req: Request) {
@@ -45,9 +31,7 @@ export async function POST(req: Request) {
   });
 
   const response = NextResponse.json({ message: "Login exitoso" });
-  response.cookies.set({
-    name: "token",
-    value: token,
+  response.cookies.set("token", token, {
     httpOnly: true,
     path: "/",
     secure: process.env.NODE_ENV === "production",
