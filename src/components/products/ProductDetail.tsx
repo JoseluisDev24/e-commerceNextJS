@@ -89,10 +89,11 @@ export default function ProductDetail({ product }: Props) {
               <p className="text-gray-500">Tenés 30 días para devolverlo</p>
             </div>
 
-            <div className="text-sm flex gap-2 text-gray-700 border-t pt-4">
+            <div className="text-sm flex justify-center items-center gap-2 text-gray-700 border-t pt-4">
               <img
                 src="/garantia.png"
                 alt="Compra segura"
+                className="w-8 h-8"
               />
               <div>
                 <p className="font-medium">Garantía</p>
