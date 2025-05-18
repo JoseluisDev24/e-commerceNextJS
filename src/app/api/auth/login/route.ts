@@ -1,17 +1,8 @@
 import { NextResponse } from "next/server";
-import { signToken } from "@/utils/auth"; 
+import { signToken } from "@/utils/auth";
+import { users } from "@/data/users";
 
-const users = [
-  {
-    userId: "1",
-    email: "jose@test.com",
-    password: "test",
-    role: "admin",
-  },
-  { userId: "2", email: "gonza@test.com", password: "test", role: "admin" },
-  { userId: "3", email: "victor@test.com", password: "test", role: "admin" },
-  { userId: "4", email: "toti@test.com", password: "test", role: "user" },
-];
+
 
 export async function POST(req: Request) {
   const { email, password } = await req.json();

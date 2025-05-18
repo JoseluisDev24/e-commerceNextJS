@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import { createProduct, updateProduct } from "@/api/products";
 import { CreateProductInput, Product } from "@/types/product"; 
-import Image from "next/image";
 
 interface Props {
   editingProduct: Product | null;
@@ -145,7 +144,7 @@ const ProductForm: React.FC<Props> = ({ editingProduct, onSuccess }) => {
 
       {formData.image && (
         <Box>
-          <Image
+          <img
             src={formData.image}
             alt="Vista previa"
             style={{ maxWidth: "100%", maxHeight: "200px", marginTop: 8 }}

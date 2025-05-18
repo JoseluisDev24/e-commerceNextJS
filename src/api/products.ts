@@ -39,7 +39,6 @@ export const getProducts = async (
   return response.data;
 };
 
-// Crear producto usando Partial<Product>
 export const createProduct = async (
   data: CreateProductInput
 ): Promise<Product> => {
@@ -51,18 +50,15 @@ export const createProduct = async (
   return response.data;
 };
 
-// Obtener producto por ID
 export const getProductById = async (id: string): Promise<Product> => {
   const response = await httpClient.get<Product>(`${API.PRODUCTS}/${id}`);
   return response.data;
 };
 
-// Eliminar producto
 export const deleteProduct = async (id: string): Promise<void> => {
   await httpClient.delete(`${API.PRODUCTS}/${id}`);
 };
 
-// Actualizar producto usando Partial<Product>
 export const updateProduct = async (
   id: string,
   data: UpdateProductInput

@@ -29,7 +29,7 @@ export default function RootLayout({
               <PersistentSidebar />
               <div className="md:ml-16">
                 <Header />
-                <main>{children}</main>
+                <main className="lg:px-30">{children}</main>
               </div>
             </FavoritesProvider>
           </ShoppingCartProvider>

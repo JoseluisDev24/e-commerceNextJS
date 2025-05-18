@@ -33,7 +33,6 @@ export async function GET(
   }
 }
 
-// ✅ ACTUALIZAR PRODUCTO
 export async function PUT(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -68,7 +67,6 @@ export async function PUT(
   }
 }
 
-// ✅ ELIMINAR PRODUCTO
 export async function DELETE(
   _req: Request,
   { params }: { params: Promise<{ id: string }> }

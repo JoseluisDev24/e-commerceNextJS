@@ -22,7 +22,7 @@ import { menuItems } from "./MenuItems";
 
 const PersistentSidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
-  const { isAuthenticated, logout, user } = useAuth(); // 🔥 Asegurarse de incluir "user"
+  const { isAuthenticated, logout, user } = useAuth();
 
   const toggleCollapse = () => {
     setIsCollapsed((prev) => !prev);
@@ -141,7 +141,6 @@ const PersistentSidebar = () => {
               {!isCollapsed && <ListItemText primary="Configuración" />}
             </ListItemButton>
 
-            {/* 🔒 Solo mostrar si el usuario es admin */}
             {user?.role === "admin" && (
               <ListItemButton
                 component={Link}

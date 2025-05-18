@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
+import {users} from "@/data/users";
 
 const JWT_SECRET = process.env.JWT_KEY || "test";
 
@@ -15,17 +16,7 @@ export function verifyToken(token: string) {
   }
 }
 
-const users = [
-  {
-    userId: "1",
-    email: "jose@test.com",
-    password: "test",
-    role: "admin",
-  },
-  { userId: "2", email: "gonza@test.com", password: "test", role: "admin" },
-  { userId: "2", email: "victor@test.com", password: "test", role: "admin" },
-  { userId: "2", email: "toti@test.com", password: "test", role: "user" },
-];
+
 
 export async function POST(req: Request) {
   const { email, password } = await req.json();

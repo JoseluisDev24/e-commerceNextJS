@@ -62,7 +62,6 @@ export async function POST(req: Request) {
     const body = await req.json();
     console.log("📦 Datos recibidos para crear producto:", body);
 
-    // Validar y limpiar campos innecesarios
     if (body._id === "") {
       console.warn("⚠️ _id vacío detectado. Eliminando...");
       delete body._id;

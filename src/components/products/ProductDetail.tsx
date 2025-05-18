@@ -1,11 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { Snackbar, Alert } from "@mui/material";
-import { Product } from "@/types/product"; // Importamos la interfaz Product desde el archivo de tipos
+import { Product } from "@/types/product";
 import { useFavorites, useShoppingCart } from "@/hooks";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -41,13 +40,12 @@ export default function ProductDetail({ product }: Props) {
     <div className="max-w-7xl mx-auto px-4 py-6">
       <div className="flex flex-col lg:flex-row gap-10">
         <div className="w-full lg:w-1/2">
-          <Image
+          <img
             src={product.image}
             alt={product.name}
             width={400}
             height={400}
             className="rounded-lg p-4 max-w-[350px] mx-auto"
-            priority
           />
         </div>
 
@@ -92,11 +90,9 @@ export default function ProductDetail({ product }: Props) {
             </div>
 
             <div className="text-sm flex gap-2 text-gray-700 border-t pt-4">
-              <Image
+              <img
                 src="/garantia.png"
                 alt="Compra segura"
-                width={50}
-                height={50}
               />
               <div>
                 <p className="font-medium">Garantía</p>

@@ -1,7 +1,6 @@
 "use client";
 
 import { useShoppingCart } from "@/hooks";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -29,7 +28,7 @@ export default function CheckoutPage() {
           <ul className="mb-6">
             {products.map((product) => (
               <li key={product.id} className="flex justify-between mb-2 gap-8">
-                <Image
+                <img
                   src={product.image}
                   alt={product.name}
                   width={50}

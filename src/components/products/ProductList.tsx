@@ -3,12 +3,12 @@
 import { useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import ProductCard from "@/components/products/ProductCard";
-import { useProducts } from "@/queries/products"; // Importamos el hook
+import { useProducts } from "@/queries/products"; 
 
 export default function ProductList() {
   const searchParams = useSearchParams();
-  const searchQuery = searchParams.get("search") || ""; // Obtenemos el término de búsqueda de la URL
-  const { products, loading, error } = useProducts(searchQuery); // Usamos el hook con el término de búsqueda
+  const searchQuery = searchParams.get("search") || ""; 
+  const { products, loading, error } = useProducts(searchQuery); 
   const productSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

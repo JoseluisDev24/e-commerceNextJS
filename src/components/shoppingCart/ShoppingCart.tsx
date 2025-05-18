@@ -3,7 +3,6 @@
 import { useShoppingCart } from "../../hooks";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EmptyShoppingCart from "./EmptyShoppingCart";
-import Image from "next/image";
 import Link from "next/link";
 
 export default function ShoppingCart() {
@@ -29,13 +28,12 @@ export default function ShoppingCart() {
               href={`/product/${product.id}`}
               className="flex items-center gap-4 flex-grow"
             >
-              <Image
+              <img
                 src={product.image}
                 alt={product.name}
                 width={40}
                 height={40}
                 className="rounded object-cover"
-                priority
               />
               <h5 className="text-sm sm:text-base font-medium whitespace-nowrap overflow-hidden text-ellipsis max-w-[120px] md:max-w-[250px]">
                 {product.name}

@@ -22,7 +22,6 @@ export const useProducts = (searchQuery: string = "") => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // ✅ Función separada para reutilizar al hacer refetch
   const fetchProducts = useCallback(async () => {
     try {
       setLoading(true);
@@ -47,7 +46,6 @@ export const useProducts = (searchQuery: string = "") => {
     }
   }, [searchQuery]);
 
-  // 🚀 Ejecuta la función cuando se monta o cambia la búsqueda
   useEffect(() => {
     fetchProducts();
   }, [fetchProducts]);
@@ -56,6 +54,6 @@ export const useProducts = (searchQuery: string = "") => {
     products,
     loading,
     error,
-    refetch: fetchProducts, // ✅ función que podés usar desde cualquier componente
+    refetch: fetchProducts, 
   };
 };

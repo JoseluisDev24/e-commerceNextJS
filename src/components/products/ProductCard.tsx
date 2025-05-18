@@ -1,8 +1,7 @@
 "use client";
 
-import { Product } from "@/types/product"; // Importamos la interfaz Product desde el archivo de tipos
+import { Product } from "@/types/product"; 
 import { useFavorites } from "@/hooks";
-import Image from "next/image";
 import clsx from "clsx";
 import Link from "next/link";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -43,7 +42,7 @@ export default function ProductCard({ product, compact = false }: Props) {
       </button>
 
       <Link href={`/products/${product.id}`}>
-        <Image
+        <img
           src={product.image}
           alt={product.name}
           width={compact ? 60 : 100}
@@ -52,7 +51,6 @@ export default function ProductCard({ product, compact = false }: Props) {
             "w-full object-contain bg-white mx-auto",
             compact ? "h-28 p-2 rounded-lg rounded-b-none" : "h-32 rounded-xl rounded-b-none "
           )}
-          priority
         />
 
         <div
