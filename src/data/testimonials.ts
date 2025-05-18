@@ -1,6 +1,6 @@
 export const testimonials = [
   {
-    name: "Victor Rosano",
+    name: "Luis Suarez",
     image: "https://unavatar.io/github/dlaudh",
     comment:
       "¡Una tienda espectacular! La atención y los productos son excelentes.",
