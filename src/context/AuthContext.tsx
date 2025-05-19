@@ -40,11 +40,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const logout = () => {
-    document.cookie = "token=; Max-Age=0; path=/";
+  const logout = async () => {
+    await fetch("/api/auth/logout", { method: "POST" });
+    localStorage.removeItem("token");
     setUser(null);
     setIsAuthenticated(false);
-    window.location.href = "/login";
   };
 
   const getUserFromCookie = async (): Promise<User | null> => {

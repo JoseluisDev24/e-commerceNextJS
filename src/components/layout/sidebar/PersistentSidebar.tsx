@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   Box,
@@ -14,7 +15,6 @@ import {
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import LogoutIcon from "@mui/icons-material/Logout";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { useAuth } from "@/context/AuthContext";
@@ -23,6 +23,7 @@ import { menuItems } from "./MenuItems";
 const PersistentSidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const { isAuthenticated, logout, user } = useAuth();
+  const router = useRouter(); 
 
   const toggleCollapse = () => {
     setIsCollapsed((prev) => !prev);
@@ -30,6 +31,7 @@ const PersistentSidebar = () => {
 
   const handleLogout = () => {
     logout();
+    router.push("/login");
   };
 
   return (
@@ -101,47 +103,7 @@ const PersistentSidebar = () => {
           </ListItemButton>
         ) : (
           <>
-            <ListItemButton
-              component={Link}
-              href="/profile"
-              sx={{
-                justifyContent: isCollapsed ? "center" : "flex-start",
-                px: 2,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: isCollapsed ? 0 : 2,
-                  justifyContent: "center",
-                }}
-              >
-                <PersonOutlineOutlinedIcon aria-hidden="true" />
-              </ListItemIcon>
-              {!isCollapsed && <ListItemText primary="Perfil" />}
-            </ListItemButton>
-
-            <ListItemButton
-              component={Link}
-              href="/settings"
-              sx={{
-                justifyContent: isCollapsed ? "center" : "flex-start",
-                px: 2,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: isCollapsed ? 0 : 2,
-                  justifyContent: "center",
-                }}
-              >
-                <SettingsOutlinedIcon aria-hidden="true" />
-              </ListItemIcon>
-              {!isCollapsed && <ListItemText primary="Configuración" />}
-            </ListItemButton>
-
-            {user?.role === "admin" && (
+            {isAuthenticated && user?.role === "admin" && (
               <ListItemButton
                 component={Link}
                 href="/admin"

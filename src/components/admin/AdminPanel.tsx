@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import ProductForm from "@/components/products/ProductForm";
-import { useProducts, Product } from "@/queries/products";
+import { useProducts } from "@/queries/products";
+import { Product } from "@/types/product";
 import { deleteProduct } from "@/api/products";
 import ProductList from "@/components/admin/ProductList";
 
@@ -46,6 +47,7 @@ const AdminPage = () => {
         <Box sx={{ flex: "1", minWidth: "300px", maxWidth: "400px" }}>
           <ProductForm
             editingProduct={editingProduct}
+            setEditingProduct={setEditingProduct}
             onSuccess={handleFormSubmit}
           />
         </Box>

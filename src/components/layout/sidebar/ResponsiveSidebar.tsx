@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import LogoutIcon from "@mui/icons-material/Logout";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 
@@ -73,12 +72,6 @@ const ResponsiveSidebar = ({ open, toggleDrawer }: Props) => {
             </ListItemButton>
           ) : (
             <>
-              <ListItemButton component={Link} href="/profile" sx={{ px: 2 }}>
-                <ListItemIcon>
-                  <PersonOutlineOutlinedIcon />
-                </ListItemIcon>
-                <ListItemText primary="Perfil" />
-              </ListItemButton>
 
               {user?.role === "admin" && (
                 <ListItemButton component={Link} href="/admin" sx={{ px: 2 }}>
@@ -88,13 +81,6 @@ const ResponsiveSidebar = ({ open, toggleDrawer }: Props) => {
                   <ListItemText primary="Admin" />
                 </ListItemButton>
               )}
-
-              <ListItemButton component={Link} href="/settings" sx={{ px: 2 }}>
-                <ListItemIcon>
-                  <SettingsOutlinedIcon />
-                </ListItemIcon>
-                <ListItemText primary="Configuración" />
-              </ListItemButton>
 
               <ListItemButton onClick={handleLogout} sx={{ px: 2 }}>
                 <ListItemIcon>
