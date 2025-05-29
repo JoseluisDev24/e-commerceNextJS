@@ -1,25 +1,52 @@
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
 
-let isConnected = false;
+declare global {
+  var mongoose:
+    | { conn: Mongoose | null; promise: Promise<Mongoose> | null }
+    | undefined;
+}
 
-export const dbConnect = async () => {
-  if (isConnected) {
-    console.log("Ya estás conectado a la base de datos.");
-    return;
+// Usar `globalThis` de forma segura y moderna
+const globalWithMongoose = globalThis as typeof globalThis & {
+  mongoose?: { conn: Mongoose | null; promise: Promise<Mongoose> | null };
+};
+
+let cached = globalWithMongoose.mongoose || { conn: null, promise: null };
+
+if (!cached) {
+  cached = globalWithMongoose.mongoose = { conn: null, promise: null };
+}
+
+async function dbConnect(): Promise<Mongoose> {
+  const MONGODB_URI = process.env.MONGODB_URI;
+
+  if (!MONGODB_URI) {
+    throw new Error(
+      "Please define the MONGODB_URI environment variable inside .env.local"
+    );
+  }
+
+  if (cached.conn) {
+    return cached.conn;
+  }
+
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false,
+    };
+    cached.promise = mongoose
+      .connect(MONGODB_URI, opts)
+      .then((mongoose) => mongoose);
   }
 
   try {
-    const db = await mongoose.connect(process.env.MONGODB_URI as string);
-
-    isConnected = db.connections[0].readyState === 1;
-
-    if (isConnected) {
-      console.log("Conexión a MongoDB exitosa!");
-    } else {
-      console.log("Error en la conexión a MongoDB.");
-    }
-  } catch (error) {
-    console.error("Error al conectar a MongoDB:", error);
-    throw new Error("Error de conexión a MongoDB.");
+    cached.conn = await cached.promise;
+  } catch (e) {
+    cached.promise = null;
+    throw e;
   }
-};
+
+  return cached.conn;
+}
+
+export default dbConnect;

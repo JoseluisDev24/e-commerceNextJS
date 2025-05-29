@@ -1,4 +1,3 @@
-// Este representa el producto completo como lo recibe o envía el backend
 export interface Product {
   id: string;
   name: string;

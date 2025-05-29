@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import ProductModel from "@/models/product.model";
-import { dbConnect } from "@/utils/db-connect";
+import dbConnect  from "@/utils/db-connect";
 
 // Obtener un producto por ID
 export async function GET(
